@@ -1,37 +1,25 @@
-function mergeRanges(meetingRanges) {
-  mergedRanges = [];
-  meetingToPairDown = [];
-  highestEndTime = -1;
-  lowestStartTime = -1;
-  // loop through each meeting object in array
-  meetingRanges.forEach((meetingRange) => {
-    if (meetingRange.endTime > highestEndTime) {
-      highestEndTime = meetingRange.endTime;
+function mergeMeeting(meetingList) {
+  mergedMeetingList = [];
+  for (let i = 0; i < meetingList.length; i++) {
+    if (mergedMeetingList.indexOf(meetingList[i].startTime) === -1) {
+      mergedMeetingList[meetingList[i].startTime] = [
+        meetingList[i].startTime,
+        "startTime",
+        i,
+      ];
     }
-
-    if (lowestStartTime > meetingRange.startTime || lowestStartTime < 0) {
-      lowestStartTime = meetingRange.startTime;
+    if (mergedMeetingList.indexOf(meetingList[i].endTime) === -1) {
+      mergedMeetingList[meetingList[i].endTime] = [
+        meetingList[i].endTime,
+        "endTime",
+        i,
+      ];
     }
-  });
-
-  for (let i = 0; i <= highestEndTime; i++) {
-    meetingToPairDown.push("");
   }
-
-  meetingRanges.forEach((meetingRange) => {
-    meetingToPairDown[meetingRange.startTime] = meetingRange.startTime;
-
-    meetingToPairDown[meetingRange.endTime] = meetingRange.endTime;
-  });
-  console.log("lowestStartTime", lowestStartTime);
-  console.log("highestEndTime", highestEndTime);
-  console.log("meetingToPairDown", meetingToPairDown);
-
-  //return merged meetingRanges
-  return mergedRanges;
+  console.log(mergedMeetingList);
 }
 
-mergeRanges([
+mergeMeeting([
   { startTime: 0, endTime: 1 },
   { startTime: 3, endTime: 5 },
   { startTime: 4, endTime: 8 },
